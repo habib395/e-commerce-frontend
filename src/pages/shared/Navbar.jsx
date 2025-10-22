@@ -81,7 +81,7 @@ const Navbar = () => {
         </li>
       </ul>
     </div>
-    <a className="btn btn-ghost italic text-amber-400 text-2xl">HUNTER</a>
+    <Link to='/' className="btn btn-ghost italic text-amber-400 text-2xl">HUNTER</Link>
   </div>
   <div className="navbar-center hidden lg:flex">
 
