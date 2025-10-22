@@ -5,6 +5,7 @@ import Home from "../pages/Home/Home";
 import MainLayout from '../layout/MainLayout';
 import Register from "../pages/register/Register";
 import Login from "../pages/login/Login";
+import CollectionDetails from "../pages/collections/CollectionDetails";
 
   const router = createBrowserRouter([
     {
@@ -23,6 +24,10 @@ import Login from "../pages/login/Login";
         {
           path: 'login',
           element: <Login></Login>
+        },
+        {
+          path: 'products/:id',
+          element: <CollectionDetails></CollectionDetails>
         }
       ]
     },

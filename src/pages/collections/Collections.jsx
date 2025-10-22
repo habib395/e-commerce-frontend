@@ -1,17 +1,53 @@
 import React from 'react';
 import { useGetProductsQuery } from '../provider/home/homeApiSlice';
+import { FaHeart, FaCartPlus, FaEye } from 'react-icons/fa';
+import { BiTransfer } from "react-icons/bi";
+import { Link } from 'react-router-dom';
 
 const ProductCard = ({ product }) => (
     <div className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 overflow-hidden border border-gray-100 p-4 flex flex-col items-center">
-        <div className="h-48 w-full flex items-center justify-center p-2">
+        <div className="h-48 w-full flex items-center justify-center p-2 relative group"> 
             <img 
                 src={product.product_image} 
                 alt={product.product_title} 
                 className="max-h-full max-w-full object-contain transition-transform duration-500 hover:scale-105" 
                 onError={(e) => { e.target.onerror = null; e.target.src="https://placehold.co/150x150/e0e0e0/555?text=No+Image" }}
             />
+            <div className="absolute  inset-0 bg-black bg-opacity-40 grid items-center justify-end pr-4 space-y-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+
+                <button 
+                    className="text-white bg-red-600 p-2 rounded-full hover:bg-red-700 transition-colors"
+                    onClick={() => console.log(`Added ${product.product_title} to Wishlist!`)}
+                >
+                    <FaHeart className="w-5 h-5" />
+                </button>
+                
+                <button 
+                    className="text-white bg-indigo-600 p-2 rounded-full hover:bg-indigo-700 transition-colors"
+                    onClick={() => console.log(`Added ${product.product_title} to Cart!`)}
+                >
+                    <FaCartPlus className="w-5 h-5" />
+                </button>
+
+                <button 
+                    className="text-white bg-indigo-600 p-2 rounded-full hover:bg-indigo-700 transition-colors"
+                    onClick={() => console.log(`Added ${product.product_title} to Cart!`)}
+                >
+                    <BiTransfer className="w-5 h-5" />
+                </button>
+                
+                <Link to={`/products/${product._id}`}>
+                <button 
+                    className="text-white bg-gray-600 p-2 rounded-full hover:bg-gray-700 transition-colors"
+                    onClick={() => console.log(`Viewing ${product.product_title} details!`)}
+                >
+                    <FaEye className="w-5 h-5" />
+                </button>
+                </Link>
+            </div>
         </div>
 
+        {/* Product Details */}
         <div className="p-4 w-full flex flex-col flex-grow">
             <h3 className="text-lg font-semibold text-gray-800 mb-1 leading-tight line-clamp-2">
                 {product.product_title}
@@ -46,18 +82,9 @@ const ProductCard = ({ product }) => (
                 </div>
             </div>
         </div>
-
-        {/* Action Button */}
-        <button 
-            className="w-full bg-indigo-600 text-white py-2 px-4 rounded-lg mt-4 font-semibold hover:bg-indigo-700 transition-colors"
-            onClick={() => alert(`Adding ${product.product_title} to cart!`)}
-        >
-            Add to Cart
-        </button>
     </div>
 );
 
-// Collections Main Component
 const Collections = () => {
     const { data: products, isLoading, isError, error } = useGetProductsQuery();
     
@@ -75,11 +102,11 @@ const Collections = () => {
     
     return (
         <section className="py-10 bg-gray-50">
-            <h2 className="text-3xl font-bold text-center text-gray-800 mb-8 border-b-2 border-indigo-500 pb-2 mx-4 sm:mx-8">
-                Featured Collections
+            <h2 className="text-lg font-semibold text-gray-800 mb-8 border-b-2 border-indigo-500 pb-2 mx-4 sm:mx-8">
+                Collections
             </h2>
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
                     {products.map(product => (
                         <ProductCard key={product._id} product={product} />
                     ))}
