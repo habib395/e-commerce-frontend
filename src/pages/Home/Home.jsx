@@ -7,10 +7,14 @@ import imageTwo from '../../assets/slide/lower.jpg'
 import { FaRegMoneyBillAlt, FaUserCircle, FaAddressCard } from "react-icons/fa";
 import { TbTruckDelivery } from "react-icons/tb";
 import Collections from '../../components/Collections';
+import { useGetBranchesQuery } from '../provider/home/branchApiSlice';
 
 const Home = () => {
     const { data: categoriesResponse, isLoading: categoriesLoading } = useGetUniqueCategoriesQuery();
-    const { data: brandsResponse, isLoading: brandsLoading } = useGetUniqueBrandsQuery(); 
+    const { data: brandsResponse, isLoading: brandsLoading } = useGetUniqueBrandsQuery();
+    const { data: branches, isLoading: branchedLoading } = useGetBranchesQuery();
+
+    console.log(branches)
     
     const categories = categoriesResponse?.data || [];
     const brands = brandsResponse?.data || []; 
